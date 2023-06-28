@@ -43,11 +43,4 @@ class Address {
       "default": defaultAddress! ? 1.toString() : 0.toString(),
     };
   }
-
-  // void fetchCity() async {
-  //   var city = await CityController().getByID(cityId);
-  //   city = city;
-  //   var countryObj = await CountryController().getByID(city.countryId);
-  //   country = countryObj;
-  // }
 }

@@ -1,7 +1,5 @@
 import 'package:final_project/controllers/review_controller.dart';
-import 'package:final_project/controllers/user_controller.dart';
 import 'package:final_project/models/review.dart';
-import 'package:final_project/models/user.dart';
 import 'package:flutter/material.dart';
 
 class ReviewProvider with ChangeNotifier {

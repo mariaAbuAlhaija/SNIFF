@@ -45,7 +45,7 @@ export default class AddressesController {
          address.zipCode = fields.zip_code; 
          address.default = fields.default; 
          await  address.save();
-         var result = Address.query().where("id",address.customerId).preload("city", (query)=>{query.preload("country")})
+         var result = Address.query().where("id",address.id).preload("city", (query)=>{query.preload("country")})
         return result;
     }
 

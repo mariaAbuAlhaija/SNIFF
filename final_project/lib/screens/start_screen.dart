@@ -21,15 +21,10 @@ class _StartScreenState extends State<StartScreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   final _formKey = GlobalKey<FormBuilderState>();
-  // @override
-  // void initState() {
-  //   ProductsProvider();
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           background(),
@@ -88,7 +83,6 @@ class _StartScreenState extends State<StartScreen> {
     switch (show) {
       case showing.defualt:
         return defualtWidget();
-      //!!!!!!!
       case showing.signin:
         return signin();
       case showing.signup:
@@ -109,7 +103,7 @@ class _StartScreenState extends State<StartScreen> {
                 height: 100.h,
                 child: ColorFiltered(
                     colorFilter:
-                        ColorFilter.mode(Colors.brown, BlendMode.srcIn),
+                        const ColorFilter.mode(Colors.brown, BlendMode.srcIn),
                     child: Image.asset("assets/images/logo.png"))),
             SizedBox(
               height: 10.h,
@@ -118,7 +112,7 @@ class _StartScreenState extends State<StartScreen> {
                 width: 150,
                 child: ColorFiltered(
                     colorFilter:
-                        ColorFilter.mode(Colors.brown, BlendMode.srcIn),
+                        const ColorFilter.mode(Colors.brown, BlendMode.srcIn),
                     child: Image.asset("assets/images/sniff.png"))),
             SizedBox(
               height: 50.h,
@@ -133,7 +127,7 @@ class _StartScreenState extends State<StartScreen> {
                     validator: FormBuilderValidators.email(),
                     keyboardType: TextInputType.emailAddress,
                     controller: emailController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Email",
                     ),
                   ),
@@ -144,7 +138,7 @@ class _StartScreenState extends State<StartScreen> {
                     name: 'password',
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Password",
                     ),
                   ),
@@ -158,15 +152,13 @@ class _StartScreenState extends State<StartScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       onPressed: () {
-                        //!!!!!!!!!!!!!!!!!
-                        // print(provider.forHimProducts.length);
                         UserController()
                             .signin(
                                 emailController.text, passwordController.text)
                             .then((value) => Navigator.pushReplacementNamed(
                                 context, "/home"));
                       },
-                      child: Text("Sign In"),
+                      child: const Text("Sign In"),
                     ),
                   ),
                   SizedBox(height: 5.h),
@@ -176,7 +168,7 @@ class _StartScreenState extends State<StartScreen> {
                           show = showing.signup;
                         });
                       },
-                      child: Text(
+                      child: const Text(
                         "Sign Up",
                         style: TextStyle(fontSize: 12),
                       )),
@@ -198,7 +190,8 @@ class _StartScreenState extends State<StartScreen> {
               width: 200.w,
               height: 100.h,
               child: ColorFiltered(
-                  colorFilter: ColorFilter.mode(Colors.brown, BlendMode.srcIn),
+                  colorFilter:
+                      const ColorFilter.mode(Colors.brown, BlendMode.srcIn),
                   child: Image.asset("assets/images/logo.png"))),
           SizedBox(
             height: 10.h,
@@ -206,7 +199,8 @@ class _StartScreenState extends State<StartScreen> {
           SizedBox(
               width: 150,
               child: ColorFiltered(
-                  colorFilter: ColorFilter.mode(Colors.brown, BlendMode.srcIn),
+                  colorFilter:
+                      const ColorFilter.mode(Colors.brown, BlendMode.srcIn),
                   child: Image.asset("assets/images/sniff.png"))),
           SizedBox(
             height: 50.h,
@@ -220,7 +214,7 @@ class _StartScreenState extends State<StartScreen> {
                 show = showing.signin;
               });
             },
-            child: Text("Sign In"),
+            child: const Text("Sign In"),
           ),
           SizedBox(height: 5.h),
           InkWell(
@@ -229,7 +223,7 @@ class _StartScreenState extends State<StartScreen> {
                   show = showing.signup;
                 });
               },
-              child: Text(
+              child: const Text(
                 "Sign Up",
                 style: TextStyle(fontSize: 12),
               ))
@@ -252,7 +246,7 @@ class _StartScreenState extends State<StartScreen> {
                   height: 100.h,
                   child: ColorFiltered(
                       colorFilter:
-                          ColorFilter.mode(Colors.brown, BlendMode.srcIn),
+                          const ColorFilter.mode(Colors.brown, BlendMode.srcIn),
                       child: Image.asset("assets/images/logo.png"))),
               SizedBox(
                 height: 10.h,
@@ -261,7 +255,7 @@ class _StartScreenState extends State<StartScreen> {
                   width: 150,
                   child: ColorFiltered(
                       colorFilter:
-                          ColorFilter.mode(Colors.brown, BlendMode.srcIn),
+                          const ColorFilter.mode(Colors.brown, BlendMode.srcIn),
                       child: Image.asset("assets/images/sniff.png"))),
               SizedBox(
                 height: 20.h,
@@ -281,7 +275,7 @@ class _StartScreenState extends State<StartScreen> {
                                 AutovalidateMode.onUserInteraction,
                             validator: FormBuilderValidators.required(),
                             controller: firstNameController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: "First Name",
                             ),
                           ),
@@ -294,7 +288,7 @@ class _StartScreenState extends State<StartScreen> {
                                 AutovalidateMode.onUserInteraction,
                             validator: FormBuilderValidators.required(),
                             controller: lastNameController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: "Last Name",
                             ),
                           ),
@@ -310,7 +304,7 @@ class _StartScreenState extends State<StartScreen> {
                       validator: FormBuilderValidators.email(),
                       keyboardType: TextInputType.emailAddress,
                       controller: emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Email",
                       ),
                     ),
@@ -335,7 +329,7 @@ class _StartScreenState extends State<StartScreen> {
                       ]),
                       keyboardType: TextInputType.visiblePassword,
                       controller: passwordController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Password",
                       ),
                     ),
@@ -350,16 +344,13 @@ class _StartScreenState extends State<StartScreen> {
                             borderRadius: BorderRadius.circular(10)),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // UserController().signout();
-                            print("inside");
                             User _user = User(
                                 firstName: firstNameController.text,
                                 lastName: lastNameController.text,
                                 email: emailController.text,
                                 password: passwordController.text);
-                            print("before");
+
                             UserController().create(_user).then((value) {
-                              print("during");
                               Navigator.pushReplacementNamed(context, "/home");
                             }).catchError((ex, stacktrace) {
                               print("error");
@@ -368,7 +359,7 @@ class _StartScreenState extends State<StartScreen> {
                             });
                           }
                         },
-                        child: Text("Sign Up"),
+                        child: const Text("Sign Up"),
                       ),
                     ),
                     SizedBox(height: 5.h),
@@ -378,7 +369,7 @@ class _StartScreenState extends State<StartScreen> {
                             show = showing.signin;
                           });
                         },
-                        child: Text(
+                        child: const Text(
                           "Sign In",
                           style: TextStyle(fontSize: 12),
                         )),

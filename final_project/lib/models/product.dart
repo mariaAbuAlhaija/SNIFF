@@ -66,7 +66,6 @@ class Product {
       quantity ?? product.quantity,
       brand: product.brand,
     );
-    // print("${_product.q} obj");
     return _product;
   }
 

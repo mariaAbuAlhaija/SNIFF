@@ -1,19 +1,11 @@
 import 'package:final_project/controllers/user_controller.dart';
 import 'package:final_project/models/user.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Profile extends StatefulWidget {
+class Profile extends StatelessWidget {
   const Profile({super.key});
 
-  @override
-  State<Profile> createState() => _ProfileState();
-}
-
-class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<User>(
@@ -29,51 +21,66 @@ class _ProfileState extends State<Profile> {
               children: [
                 Column(
                   children: [
-                    ListTile(
-                      title: Text(
-                        "${snapshot.data!.firstName[0].toUpperCase()}${snapshot.data!.firstName.substring(1)} ${snapshot.data!.lastName[0].toUpperCase()}${snapshot.data!.lastName.substring(1)}",
-                        style: TextStyle(fontSize: 21),
-                      ),
-                      subtitle: Padding(
-                        padding: EdgeInsets.only(left: 5.w),
-                        child: Text(
-                          "${snapshot.data!.email}",
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                        title: Text("Addresses"),
-                        onTap: () {
-                          Navigator.pushNamed(context, "/address",
-                              arguments: false);
-                        }),
-                    ListTile(
-                        title: Text("Orders"),
-                        onTap: () {
-                          Navigator.pushNamed(context, "/orders");
-                        }),
+                    userDetails(snapshot),
+                    options(context),
                   ],
                 ),
-                Container(
-                  width: double.infinity,
-                  child: MaterialButton(
-                    color: Colors.white,
-                    elevation: 0,
-                    shape: Border.all(color: Colors.red),
-                    onPressed: () {
-                      UserController().signout().then((value) =>
-                          Navigator.pushReplacementNamed(context, "/start"));
-                    },
-                    child: Text(
-                      "Logout",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                )
+                logout(context)
               ],
             ),
           );
         });
+  }
+
+  ListTile userDetails(AsyncSnapshot<User> snapshot) {
+    return ListTile(
+      title: Text(
+        "${snapshot.data!.firstName[0].toUpperCase()}${snapshot.data!.firstName.substring(1)} ${snapshot.data!.lastName[0].toUpperCase()}${snapshot.data!.lastName.substring(1)}",
+        style: const TextStyle(fontSize: 21),
+      ),
+      subtitle: Padding(
+        padding: EdgeInsets.only(left: 5.w),
+        child: Text(
+          snapshot.data!.email,
+        ),
+      ),
+    );
+  }
+
+  Column options(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+            title: const Text("Addresses"),
+            onTap: () {
+              Navigator.pushNamed(context, "/address", arguments: false);
+            }),
+        ListTile(
+            title: const Text("Orders"),
+            onTap: () {
+              Navigator.pushNamed(context, "/orders");
+            }),
+      ],
+    );
+  }
+
+  Container logout(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: MaterialButton(
+        color: Colors.red,
+        elevation: 0,
+        // shape: Border.all(color: Colors.red),
+        onPressed: () {
+          UserController().signout().then(
+              (value) => Navigator.pushReplacementNamed(context, "/start"));
+        },
+        child: const Text(
+          "Logout",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
   }
 
   Center loading() =>

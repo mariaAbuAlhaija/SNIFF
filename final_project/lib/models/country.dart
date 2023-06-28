@@ -16,7 +16,7 @@ class Country {
     return Country(
       json["id"] ?? 0,
       json["name"] ?? "",
-      json["city"] ?? [], //!
+      json["city"] ?? [],
     );
   }
   Map<String, dynamic> toJson() {

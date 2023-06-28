@@ -9,46 +9,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:final_project/constants/images.dart';
 import 'package:provider/provider.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({super.key});
 
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return home();
   }
 
-// ProviderScope(
-//       child: Consumer(builder: (context, ref, child) {
-//         return ref.watch(productProvider).when(
-//           data: (value) {
-//             return ListView.builder(
-//               itemCount: value.allProducts.length,
-//               itemBuilder: (BuildContext context, int index) {
-//                 return Text(value.allProducts[index].name);
-//               },
-//             );
-//           },
-//           error: (Object error, StackTrace stackTrace) {
-//             print(error);
-//             return Container(
-//               color: Colors.amber,
-//             );
-//           },
-//           loading: () {
-//             return Center(
-//               child: CircularProgressIndicator(
-//                 color: Colors.black,
-//               ),
-//             );
-//           },
-//         );
-//       }),
-//     );
   Consumer home() {
     return Consumer<ProductsProvider>(builder: (context, provider, child) {
       if (provider.empty()) return loading();
@@ -57,111 +25,15 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Container(
-              child: slider(provider),
+              child: slider(context, provider),
             ),
-            himVsHer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  height: 230.h,
-                  width: 180.w,
-                  child: Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    color: Colors.grey,
-                    child: InkWell(
-                      onTap: () {
-                        var args =
-                            genderArgs(provider.forHerProducts, "For Her");
-                        Navigator.pushNamed(context, "/gender_products",
-                            arguments: args);
-                      },
-                      child: card(provider.forHerProducts[0].images[0],
-                          txt: "For Her"),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 230.h,
-                  width: 180.w,
-                  child: Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    color: Colors.grey,
-                    child: InkWell(
-                      onTap: () {
-                        var args =
-                            genderArgs(provider.forHimProducts, "For Him");
-                        Navigator.pushNamed(context, "/gender_products",
-                            arguments: args);
-                      },
-                      child: card(provider.forHimProducts[6].images[1],
-                          txt: "For Him"),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            ListTile(
-              title: Text(
-                "Shop by Brand",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-                width: double.infinity,
-                height: 100,
-                child: FutureBuilder(
-                    future: BrandController().getAll(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData && !snapshot.hasError) {
-                        return ListView.builder(
-                            itemCount: snapshot.data!.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                width: 175.w,
-                                padding: const EdgeInsets.all(2.5),
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/brand",
-                                        arguments: snapshot.data![index]);
-                                  },
-                                  child: Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    elevation: 0.5,
-                                    shadowColor: Colors.black.withOpacity(0.5),
-                                    child: Image.network(
-                                      snapshot.data![index].image,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            });
-                      }
-                      return Container();
-                    })),
-            Container(
-              padding: EdgeInsets.only(left: 5, right: 5, top: 20),
-              height: 250.h,
-              width: double.infinity,
-              child: Card(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                color: Colors.grey,
-                child: card(Images().perfumesImage,
-                    txt: "Explore Top Rated Scents!"),
-              ),
-            ),
+            himVsHer(context, provider),
+            shopByBrand(),
+            banner(),
             SizedBox(
               height: 5.h,
             ),
-            ListTile(
-              title: Center(
-                  child: Text(
-                "Especially For You",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              )),
-            ),
+            especiallyForYou(),
             SizedBox(
               height: 10.h,
             ),
@@ -172,16 +44,129 @@ class _HomeState extends State<Home> {
     });
   }
 
-  ListTile himVsHer() {
-    return ListTile(
-      title: Text(
-        "Her VS Him",
+  ListTile especiallyForYou() {
+    return const ListTile(
+      title: Center(
+          child: Text(
+        "Especially For You",
         style: TextStyle(fontWeight: FontWeight.bold),
+      )),
+    );
+  }
+
+  Container banner() {
+    return Container(
+      padding: const EdgeInsets.only(left: 5, right: 5, top: 20),
+      height: 250.h,
+      width: double.infinity,
+      child: Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        color: Colors.grey,
+        child: card(Images().perfumesImage, txt: "Explore Top Rated Scents!"),
       ),
     );
   }
 
-  ImageSlideshow slider(ProductsProvider provider) {
+  Column shopByBrand() {
+    return Column(
+      children: [
+        const ListTile(
+          title: Text(
+            "Shop by Brand",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        Container(
+            width: double.infinity,
+            height: 100,
+            child: FutureBuilder(
+                future: BrandController().getAll(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && !snapshot.hasError) {
+                    return ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            width: 175.w,
+                            padding: const EdgeInsets.all(2.5),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, "/brand",
+                                    arguments: snapshot.data![index]);
+                              },
+                              child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                elevation: 0.5,
+                                shadowColor: Colors.black.withOpacity(0.5),
+                                child: Image.network(
+                                  snapshot.data![index].image,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          );
+                        });
+                  }
+                  return Container();
+                })),
+      ],
+    );
+  }
+
+  Widget himVsHer(context, provider) {
+    return Column(
+      children: [
+        const ListTile(
+          title: Text(
+            "Her VS Him",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(
+              height: 230.h,
+              width: 180.w,
+              child: Card(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                color: Colors.grey,
+                child: InkWell(
+                  onTap: () {
+                    var args = genderArgs(provider.forHerProducts, "For Her");
+                    Navigator.pushNamed(context, "/gender_products",
+                        arguments: args);
+                  },
+                  child: card(provider.forHerProducts[0].images[0],
+                      txt: "For Her"),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 230.h,
+              width: 180.w,
+              child: Card(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                color: Colors.grey,
+                child: InkWell(
+                  onTap: () {
+                    var args = genderArgs(provider.forHimProducts, "For Him");
+                    Navigator.pushNamed(context, "/gender_products",
+                        arguments: args);
+                  },
+                  child: card(provider.forHimProducts[6].images[1],
+                      txt: "For Him"),
+                ),
+              ),
+            )
+          ],
+        ),
+      ],
+    );
+  }
+
+  ImageSlideshow slider(context, ProductsProvider provider) {
     return ImageSlideshow(
       width: double.infinity,
       height: 350,

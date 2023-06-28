@@ -3,6 +3,7 @@ import 'package:final_project/models/address.dart';
 import 'package:final_project/models/brand.dart';
 import 'package:final_project/models/order.dart';
 import 'package:final_project/models/product.dart';
+import 'package:final_project/providers/address_provider.dart';
 import 'package:final_project/providers/product_provider.dart';
 import 'package:final_project/providers/review_provider.dart';
 import 'package:final_project/providers/user_provider.dart';
@@ -12,7 +13,6 @@ import 'package:final_project/screens/cart.dart';
 import 'package:final_project/screens/display_brand.dart';
 import 'package:final_project/screens/display_product.dart';
 import 'package:final_project/screens/gender_products.dart';
-import 'package:final_project/screens/map.dart';
 import 'package:final_project/screens/navigation.dart';
 import 'package:final_project/screens/new_address.dart';
 import 'package:final_project/screens/order_details.dart';
@@ -38,6 +38,9 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, Widget? child) {
           return MultiProvider(
             providers: [
+              ListenableProvider<AddressProvider>(
+                create: (context) => AddressProvider(),
+              ),
               ListenableProvider<ProductsProvider>(
                 create: (context) => Globals().productProvider,
               ),

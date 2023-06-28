@@ -6,8 +6,6 @@ class Brand {
 
   Brand(this.id, this.name, this.image, this.description);
 
-  // factory Brand.defaultConstructor({});
-
   factory Brand.fromJson(json) {
     return Brand(
       json["id"] ?? 0,

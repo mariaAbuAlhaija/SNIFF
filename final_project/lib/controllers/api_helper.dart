@@ -6,7 +6,6 @@ class ApiHelper {
   String domain = "192.168.1.104:3333";
   Future get(String path, {body}) async {
     Uri uri = Uri.http(domain, path, body);
-
     var token = await getToken();
     var headers = {"Authorization": token};
     var response = await http.get(uri, headers: headers);

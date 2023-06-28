@@ -11,11 +11,6 @@ class ProductsProvider with ChangeNotifier {
   final List<Product> allProducts = [];
   List<Product> cart = [];
 
-  // ProductsProvider() {
-  //   products();
-  //   herProducts();
-  //   himProducts();
-  // }
   static final ProductsProvider _productsProvider =
       ProductsProvider._internal();
 
