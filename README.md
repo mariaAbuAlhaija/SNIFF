@@ -5,6 +5,7 @@ SNIFF is a small business e-commerce application built using MySQL as the databa
 Intuitive Interface: SNIFF offers a sleek and user-friendly interface, ensuring a seamless experience. The design is optimized for ease of use and efficient navigation.
 
 Responsive Design: The frontend of SNIFF is developed using Flutter, ensuring a responsive and visually appealing user interface across multiple platforms and devices.
+![pp](https://github.com/mariaAbuAlhaija/SNIFF/assets/84870567/916b83b4-195d-4bca-b9c0-a9d0b121d345)
 
 # Getting Started
 To set up and run SNIFF on your local machine, follow these steps:
